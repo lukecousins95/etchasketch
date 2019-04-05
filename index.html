@@ -1,0 +1,89 @@
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <button id='partyBtn'>Party Time</button><button id='resetBtn'>Reset</button>
+        <p></p>
+        <div id='squarecontainer' style="width:720px; height:720px; display:inline-block"></div>
+    </body>
+
+    <script>
+        const container = document.querySelector('#squarecontainer');
+
+        const partyButton = document.querySelector('#partyBtn')
+        const resetButton = document.querySelector('#resetBtn')
+
+        partyButton.textContent = 'No party here'
+        partyButton.value = 'off'
+
+        document.querySelector('#partyBtn').addEventListener("click",function(){
+            if(partyButton.value == 'off'){
+                partyButton.value = 'on';
+                partyButton.textContent = 'Party time!';
+            }
+            else{
+                partyButton.value = 'off';
+                partyButton.textContent = 'No party here';
+            }
+            }
+        )
+
+        function createGrid(size){
+            for (i = 0; i < size; i++) {
+                    for(a = 0; a < size; a++){
+                        const row = document.createElement('div');
+                        row.className = 'etcha';
+                        row.style.background = 'white';
+                        row.style.height = (720/size);
+                        row.style.width = (720/size);
+                        row.style.display = 'inline-block';
+                        container.appendChild(row);
+                    }
+
+            const squares = document.querySelectorAll('.etcha');
+
+            squares.forEach(function(e){
+                e.addEventListener("mouseover",function(){
+
+                if(partyButton.value == 'on'){
+                    var letters = '0123456789ABCDEF';
+                    var color = '#';
+
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+
+                    e.style.background = color;
+                }
+
+                else{
+                    e.style.background = 'black';
+
+                }
+            }
+                )
+            }
+            )
+            }
+        }
+
+        function resetGrid(){
+            const squares = document.querySelectorAll('.etcha');
+            squares.forEach(function(r){
+                r.remove();
+            })
+            newSize = prompt('Enter');
+            createGrid(newSize);
+        }
+
+        createGrid(16);
+
+        resetButton.addEventListener('click',function(){
+            resetGrid();
+        });
+
+
+    </script>
+</html>
